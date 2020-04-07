@@ -15,14 +15,12 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag pwa-android-build-box:$(date +%s)
-    
-    - name: Publish Docker Image to GPR
-      uses: machine-learning-apps/gpr-docker-publish@master
+      run: docker build . --file Dockerfile --tag pwa-android-build-box
+      
+    - name: sorc3r3r/publish-docker-image
+      uses: SORC3r3r/docker-publish@v1-alpha
       with:
-        IMAGE_NAME: 'pwa-android-build-box'
-        TAG: 'pwa-android-build-box'
-        DOCKERFILE_PATH: 'docker-android-build-box/Dockerfile'
-        BUILD_CONTEXT: 'docker-android-build-box/'
-      env:
+        # GitHubs GITHUB_TOKEN
         GITHUB_TOKEN: ${{ secrets.token }}
+          # Docker tag of the image
+        DOCKER_TAG: pwa-android-build-box
