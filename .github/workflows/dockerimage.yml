@@ -15,12 +15,12 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag pwa-android-build-box
+      run: docker build -t docker.pkg.github.com/jgw96/docker-android-build-box/pwa-android-build-box:latest
       
-    - name: sorc3r3r/publish-docker-image
-      uses: SORC3r3r/docker-publish@v1-alpha
-      with:
-        # GitHubs GITHUB_TOKEN
-        GITHUB_TOKEN: ${{ secrets.token }}
-          # Docker tag of the image
-        DOCKER_TAG: pwa-android-build-box
+    - name: Login
+      run: docker login docker.pkg.github.com -u jgw96 ${{secrets.token}}
+      
+    - name: Push
+      run: docker push docker.pkg.github.com/jgw96/docker-android-build-box/pwa-android-build-box:latest
+     
+    
