@@ -21,8 +21,8 @@ jobs:
       uses: machine-learning-apps/gpr-docker-publish@master
       with:
         IMAGE_NAME: 'pwa-android-build-box'
-        TAG: 'pwa-android-build-box:$(date +%s)'
+        TAG: 'pwa-android-build-box'
         DOCKERFILE_PATH: 'docker-android-build-box/Dockerfile'
-        BUILD_CONTEXT: '  /'
+        BUILD_CONTEXT: '/'
       env:
         GITHUB_TOKEN: ${{ secrets.token }}
