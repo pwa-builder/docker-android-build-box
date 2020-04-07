@@ -15,10 +15,10 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build the Docker image
-      run: docker build -t docker.pkg.github.com/jgw96/docker-android-build-box/pwa-android-build-box:latest
+      run: docker build . --file Dockerfile --tag docker.pkg.github.com/jgw96/docker-android-build-box/pwa-android-build-box:latest
       
     - name: Login
-      run: docker login docker.pkg.github.com -u jgw96 ${{secrets.token}}
+      run: docker login docker.pkg.github.com -u jgw96 --password ${{secrets.token}}
       
     - name: Push
       run: docker push docker.pkg.github.com/jgw96/docker-android-build-box/pwa-android-build-box:latest
