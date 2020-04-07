@@ -116,7 +116,7 @@ RUN echo "Installing sdk tools ${ANDROID_SDK_TOOLS_VERSION}" && \
         "platforms;android-28" \
         "platforms;android-27" \
         "platforms;android-26" \
-        "platforms;android-25" 
+        "platforms;android-25" \
         > /dev/null && \
     echo "Installing platform tools " && \
     yes | "$ANDROID_HOME"/tools/bin/sdkmanager \
