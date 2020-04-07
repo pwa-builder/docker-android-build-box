@@ -16,3 +16,13 @@ jobs:
     - uses: actions/checkout@v2
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag pwa-android-build-box:$(date +%s)
+    
+    - name: Publish Docker Image to GPR
+      uses: machine-learning-apps/gpr-docker-publish@master
+      with:
+        IMAGE_NAME: 'pwa-android-build-box'
+        TAG: 'pwa-android-build-box:$(date +%s)'
+        DOCKERFILE_PATH: 'docker-android-build-box/Dockerfile'
+        BUILD_CONTEXT: '  /'
+      env:
+        GITHUB_TOKEN: ${{ secrets.token }}
