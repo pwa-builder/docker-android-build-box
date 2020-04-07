@@ -23,6 +23,6 @@ jobs:
         IMAGE_NAME: 'pwa-android-build-box'
         TAG: 'pwa-android-build-box'
         DOCKERFILE_PATH: 'docker-android-build-box/Dockerfile'
-        BUILD_CONTEXT: '/'
+        BUILD_CONTEXT: 'docker-android-build-box/'
       env:
         GITHUB_TOKEN: ${{ secrets.token }}
