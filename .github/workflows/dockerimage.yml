@@ -15,12 +15,12 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag pwabuilder.azurecr.io/pwa-android-build-box:latest
+      run: docker build . --file Dockerfile --tag pwabuilder.azurecr.io/pwa-android-build-box:preview
       
     - name: Login
       run: docker login pwabuilder.azurecr.io -u pwabuilder --password ${{secrets.azure}}
       
     - name: Push
-      run: docker push pwabuilder.azurecr.io/pwa-android-build-box:latest
+      run: docker push pwabuilder.azurecr.io/pwa-android-build-box:preview
      
     
