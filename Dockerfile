@@ -452,6 +452,42 @@ RUN chmod 775 -R $ANDROID_HOME && \
 WORKDIR ${FINAL_DIRWORK}
 
 #----------~~~~~~~~~~*****
+# build target: minimal-plus
+#----------~~~~~~~~~~*****
+# extended minimal with android-sdk and nodejs
+
+FROM pre-minimal as minimal-plus
+
+ARG BUILD_TOOLS="build-tools;33.0.2"
+ARG NODE_VERSION="18.x"
+
+RUN echo "installing: ${BUILD_TOOLS}" && \
+    . /etc/jdk.env && \
+    yes | ${ANDROID_SDK_MANAGER} ${DEBUG:+--verbose} --install "${BUILD_TOOLS}" > /dev/null
+
+RUN curl -sL -k https://deb.nodesource.com/setup_${NODE_VERSION} | bash - > /dev/null
+RUN apt-get install -qq nodejs > /dev/null && \
+    npm install --quiet -g npm > /dev/null && \
+    npm cache clean --force > /dev/null && \
+    apt-get -y clean && apt-get -y autoremove
+
+COPY --from=stage2 /var/lib/jenkins/workspace /var/lib/jenkins/workspace
+COPY --from=stage2 /home/jenkins /home/jenkins
+COPY --from=jenv-final ${JENV_ROOT} ${JENV_ROOT}
+COPY --from=jenv-final ${INSTALLED_TEMP} ${DIRWORK}/.jenv_version
+COPY --from=jenv-final /root/.bash_profile /root/.bash_profile
+
+RUN chmod 775 -R $ANDROID_HOME && \
+    git config --global --add safe.directory ${JENV_ROOT} && \
+    cat ${DIRWORK}/.jenv_version >> ${INSTALLED_VERSIONS} && \
+    rm -rf ${DIRWORK}/* && \
+    echo "Android SDKs, Build tools, etc Installed: " >> ${INSTALLED_VERSIONS} && \
+    . /etc/jdk.env && \
+    ${ANDROID_SDK_MANAGER} --list_installed | tail --lines=+2 >> ${INSTALLED_VERSIONS}
+
+WORKDIR ${FINAL_DIRWORK}
+
+#----------~~~~~~~~~~*****
 # build target: complete
 #----------~~~~~~~~~~*****
 FROM node-final as complete
