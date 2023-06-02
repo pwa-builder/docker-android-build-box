@@ -46,4 +46,4 @@ jobs:
         labels: ${{ steps.meta.outputs.labels }}
         cache-from: type=gha
         cache-to: type=gha,mode=max
-        builder-args: --target minimal-plus
+        target: minimal-plus
