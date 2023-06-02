@@ -6,6 +6,10 @@ on:
   pull_request:
     branches: [ master ]
 
+env:
+  REGISTRY: pwabuilder.azurecr.io
+  IMAGE_NAME: pwa-android-build-box:preview
+  
 jobs:
 
   build:
@@ -13,18 +17,32 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - name: Checkout repository
+      uses: actions/checkout@v3
     
     - name: Setup Docker buildx
       uses: docker/setup-buildx-action@79abd3f86f79a9d68a23c75a09a9a85889262adf
-
-    - name: Build the Docker image
-      run: docker buildx build --target minimal-plus . --file Dockerfile --tag pwabuilder.azurecr.io/pwa-android-build-box:preview
-      
-    - name: Login
-      run: docker login pwabuilder.azurecr.io -u pwabuilder --password ${{secrets.azure}}
-      
-    - name: Push
-      run: docker push pwabuilder.azurecr.io/pwa-android-build-box:preview
-     
     
+    - name: Log into registry ${{ env.REGISTRY }}
+      uses: docker/login-action@28218f9b04b4f3f62068d7b6ce6ca5b26e35336c
+      with:
+        registry: ${{ env.REGISTRY }}
+        username: pwabuilder
+        password: ${{secrets.azure}}
+
+    - name: Extract Docker metadata
+      id: meta
+      uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
+      with:
+        images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+
+    - name: Build and push Docker image
+      id: build-and-push
+      uses: docker/build-push-action@ac9327eae2b366085ac7f6a2d02df8aa8ead720a
+      with:
+        context: .
+        push: true
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
