@@ -8,8 +8,8 @@ on:
 
 env:
   REGISTRY: pwabuilder.azurecr.io
-  IMAGE_NAME: pwa-android-build-box:preview
-  
+  IMAGE_NAME: pwa-android-build-box
+
 jobs:
 
   build:
