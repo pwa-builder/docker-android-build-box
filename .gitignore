@@ -1,4 +1,7 @@
 *.md
 !README.md
 
-test_projects
+test_projects/
+
+Gemfile
+.travis.yml
