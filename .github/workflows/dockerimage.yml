@@ -43,11 +43,11 @@ jobs:
         context: .
         push: false
         platforms: linux/amd64
-        tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }},${{ steps.meta.outputs.tags }}
+        tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:master,${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
         cache-from: type=gha
         cache-to: type=gha,mode=max
         target: minimal-plus
     
     - name: Push
-      run: docker push pwabuilder.azurecr.io/pwa-android-build-box:master
+      run: docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:master
