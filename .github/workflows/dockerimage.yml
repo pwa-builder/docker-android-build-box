@@ -9,6 +9,7 @@ on:
 env:
   REGISTRY: pwabuilder.azurecr.io
   IMAGE_NAME: pwa-android-build-box
+  TAG: master
 
 jobs:
 
@@ -41,9 +42,14 @@ jobs:
       uses: docker/build-push-action@ac9327eae2b366085ac7f6a2d02df8aa8ead720a
       with:
         context: .
-        push: true
-        tags: ${{ steps.meta.outputs.tags }}
+        push: false
+        load: true
+        platforms: linux/amd64
+        tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.TAG }},${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
         cache-from: type=gha
         cache-to: type=gha,mode=max
         target: minimal-plus
+    
+    - name: Push
+      run: docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.TAG }}
