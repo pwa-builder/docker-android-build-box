@@ -3,7 +3,9 @@
 # when _TAGGED is "tagged" the version in _VERSION will be used.
 # _TAGGED is used to handle the build stages
 
-# "\6609375" as of 2024/08/08
+# Find latest version for commandlinetools on https://developer.android.com/studio
+# or run `curl https://developer.android.com/studio | findstr /r "https:\/\/dl.google.com\/android\/repository\/commandlinetools\-linux\-[0-9]*_latest\.zip"`
+# and copy the value between "linux-XXXXXXX_latest"
 ARG ANDROID_SDK_TOOLS_TAGGED="latest"
 ARG ANDROID_SDK_TOOLS_VERSION="11076708"
 
