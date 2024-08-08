@@ -205,7 +205,6 @@ FROM jenv-${JENV_TAGGED} as jenv-final
 RUN . ~/.bash_profile && \
     . /etc/jdk.env && \
     java -version && \
-    jenv add /usr/lib/jvm/java-8-openjdk-$JDK_PLATFORM && \
     jenv add /usr/lib/jvm/java-11-openjdk-$JDK_PLATFORM && \
     jenv add /usr/lib/jvm/java-17-openjdk-$JDK_PLATFORM && \
     jenv versions && \
