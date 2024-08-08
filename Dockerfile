@@ -5,7 +5,7 @@
 
 # "\6609375" as of 2024/08/08
 ARG ANDROID_SDK_TOOLS_TAGGED="latest"
-ARG ANDROID_SDK_TOOLS_VERSION="6609375"
+ARG ANDROID_SDK_TOOLS_VERSION="11076708"
 
 # Valid values are "last8" or "tagged"
 # "last8" will grab the last 8 android-sdks, including extensions and
