@@ -3,7 +3,7 @@
 # when _TAGGED is "tagged" the version in _VERSION will be used.
 # _TAGGED is used to handle the build stages
 
-# "9123335" as of 2023/01/11
+# "\6609375" as of 2024/08/08
 ARG ANDROID_SDK_TOOLS_TAGGED="latest"
 ARG ANDROID_SDK_TOOLS_VERSION="11076708"
 
