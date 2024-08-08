@@ -119,7 +119,6 @@ RUN apt-get update -qq > /dev/null && \
         m4 \
         ncurses-dev \
         ocaml \
-        openjdk-8-jdk \
         openjdk-11-jdk \
         openjdk-17-jdk \
         openssh-client \
