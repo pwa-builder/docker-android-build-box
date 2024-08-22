@@ -458,12 +458,15 @@ WORKDIR ${FINAL_DIRWORK}
 
 FROM pre-minimal as minimal-plus
 
-ARG BUILD_TOOLS="build-tools;33.0.2"
+# https://developer.android.com/tools/releases/build-tools
+ARG BUILD_TOOLS="build-tools;34.0.0"
+# targetSdkVersion on bubblewrap https://github.com/GoogleChromeLabs/bubblewrap/blob/main/packages/core/template_project/app/build.gradle#L59
+ARG PLATFORMS="platforms;android-35"
 ARG NODE_VERSION="18.x"
 
 RUN echo "installing: ${BUILD_TOOLS}" && \
     . /etc/jdk.env && \
-    yes | ${ANDROID_SDK_MANAGER} ${DEBUG:+--verbose} --install "${BUILD_TOOLS}" > /dev/null
+    yes | ${ANDROID_SDK_MANAGER} ${DEBUG:+--verbose} --install "${BUILD_TOOLS}" "${PLATFORMS}" > /dev/null
 
 RUN curl -sL -k https://deb.nodesource.com/setup_${NODE_VERSION} | bash - > /dev/null
 RUN apt-get install -qq nodejs > /dev/null && \
