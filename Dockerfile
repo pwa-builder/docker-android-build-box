@@ -3,9 +3,11 @@
 # when _TAGGED is "tagged" the version in _VERSION will be used.
 # _TAGGED is used to handle the build stages
 
-# "9123335" as of 2023/01/11
+# Find latest version for commandlinetools on https://developer.android.com/studio
+# or run `curl https://developer.android.com/studio | findstr /r "https:\/\/dl.google.com\/android\/repository\/commandlinetools\-linux\-[0-9]*_latest\.zip"`
+# and copy the value between "linux-XXXXXXX_latest"
 ARG ANDROID_SDK_TOOLS_TAGGED="latest"
-ARG ANDROID_SDK_TOOLS_VERSION="9123335"
+ARG ANDROID_SDK_TOOLS_VERSION="11076708"
 
 # Valid values are "last8" or "tagged"
 # "last8" will grab the last 8 android-sdks, including extensions and
@@ -119,7 +121,6 @@ RUN apt-get update -qq > /dev/null && \
         m4 \
         ncurses-dev \
         ocaml \
-        openjdk-8-jdk \
         openjdk-11-jdk \
         openjdk-17-jdk \
         openssh-client \
@@ -204,7 +205,6 @@ FROM jenv-${JENV_TAGGED} as jenv-final
 RUN . ~/.bash_profile && \
     . /etc/jdk.env && \
     java -version && \
-    jenv add /usr/lib/jvm/java-8-openjdk-$JDK_PLATFORM && \
     jenv add /usr/lib/jvm/java-11-openjdk-$JDK_PLATFORM && \
     jenv add /usr/lib/jvm/java-17-openjdk-$JDK_PLATFORM && \
     jenv versions && \
