@@ -458,7 +458,7 @@ WORKDIR ${FINAL_DIRWORK}
 
 FROM pre-minimal as minimal-plus
 
-ARG BUILD_TOOLS="build-tools;35.0.0"
+ARG BUILD_TOOLS="build-tools;34.0.0"
 ARG NODE_VERSION="18.x"
 
 RUN echo "installing: ${BUILD_TOOLS}" && \
